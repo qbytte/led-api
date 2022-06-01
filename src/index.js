@@ -41,8 +41,9 @@ MongoClient.connect(connection_url)
         .catch((error) => console.error(error));
     });
 
-    app.patch("/led_status/update", (req, res) => {
-      const prevStatus = status_collection.findOne();
+    app.patch("/led_status/update", async (req, res) => {
+      const prevStatus = await status_collection.findOne();
+      console.log(prevStatus)
       status_collection
         .findOneAndUpdate(prevStatus, {
           $set: {
